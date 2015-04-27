@@ -1,0 +1,11 @@
+<?php
+$title = "Détails d'un lieu";
+$this->headTitle($title);
+?>
+<h2><?php echo $this->escapeHtml($title); ?></h2>
+<p>
+    <strong>Nom de la salle :</strong> <?php echo $lieu->getNom(); ?>
+</p>
+<p>
+    <strong>Capacité :</strong> <?php echo $lieu->getCapacite(); ?> places
+</p>

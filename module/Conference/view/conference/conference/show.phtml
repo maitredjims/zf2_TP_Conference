@@ -1,0 +1,21 @@
+<?php
+$title = 'Détails d\'une conférence';
+$this->headTitle($title);
+?>
+<h2><?php echo $this->escapeHtml($title); ?></h2>
+<p>
+    Nom de la conférence : <?php echo $this->escapeHtml($conference->getNom()); ?>
+</p>
+<p>
+    Détails : <?php echo $this->escapeHtml($conference->getDescriptif()); ?>
+</p>
+<?php if($conference->getDateDebut()) :?>
+<p>
+    Date de début : <?php echo $this->escapeHtml($conference->getDateDebut()); ?>
+</p>
+<?php endif; ?>
+<?php if($conference->getLieu()) :?>
+<p>
+    Lieu : <?php echo $this->escapeHtml($conference->getLieu()->getNom());?>
+</p>
+<?php endif; ?>

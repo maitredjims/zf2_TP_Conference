@@ -1,0 +1,30 @@
+<?php
+$title = 'Liste des lieux';
+$this->headTitle($title);
+?>
+<p>
+    <a href="<?php echo $this->url('lieu/add', array('action' => 'add')); ?>" class="btn btn-primary">Ajouter un nouveau lieu</a>
+</p>
+<h2><?php echo $this->escapeHtml($title); ?></h2>
+<table class="table">
+    <tr>
+        <th>Nom du lieu</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+    </tr>
+    <?php foreach ($listLieux as $lieu) :?>
+    <tr>
+        <td><?php echo $lieu->getNom(); ?></td>
+        <td>
+            <a href="<?=$this->url('lieu/show', array('id' => $this->escapeUrl($lieu->getId())));?>" class="btn btn-primary">Détails</a>
+        </td>
+        <td>
+            <a href="<?=$this->url('lieu/update', array('id' => $this->escapeUrl($lieu->getId())));?>" class="btn btn-primary">Modifier</a>
+        </td>
+        <td>
+            <a href="<?=$this->url('lieu/delete', array('id' => $this->escapeUrl($lieu->getId())));?>" class="btn btn-primary">Supprimer</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>

@@ -1,0 +1,30 @@
+<?php
+$title = 'Liste des conférences';
+$this->headTitle($title);
+?>
+<h2><?php echo $this->escapeHtml($title); ?></h2>
+<p>
+    <a href="<?php echo $this->url('conference/add', array('action' => 'add')); ?>" class="btn btn-primary">Ajouter une nouvelle conférence</a>
+</p>
+<table class="table">
+    <tr>
+        <th>Nom de la conférence</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+    </tr>
+    <?php foreach($conferences as $conference) : ?>
+    <tr>
+        <td><?=$this->escapeHtml($conference->getNom()); ?></td>
+        <td>
+            <a href="<?=$this->url('conference/show', array('id' => $this->escapeUrl($conference->getId())));?>" class="btn btn-primary">Détails</a>
+        </td>
+        <td>
+            <a href="<?=$this->url('conference/update', array('id' => $this->escapeUrl($conference->getId())));?>" class="btn btn-primary">Modifier</a>
+        </td>
+        <td>
+            <a href="<?=$this->url('conference/delete', array('id' => $this->escapeUrl($conference->getId())));?>" class="btn btn-primary">Supprimer</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>
