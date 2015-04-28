@@ -4,6 +4,7 @@ namespace Conference\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Form\FormInterface;
 
 class ConferenceController extends AbstractActionController
 {
@@ -24,11 +25,19 @@ class ConferenceController extends AbstractActionController
      * @var \Conference\Service\LieuService
      */
     protected $lieuService;
+    
+    /**
+     *
+     * @var \Conference\Form\ConferenceForm
+     */
+    protected $conferenceForm;
 
 
-    public function __construct(\Conference\Service\ConferenceService $conferenceService,  \Conference\Service\LieuService $lieuService) {
+    public function __construct(FormInterface $conferenceForm, \Conference\Service\ConferenceService $conferenceService,  \Conference\Service\LieuService $lieuService) {
         $this->conferenceService = $conferenceService;
         $this->lieuService = $lieuService;
+        
+        $this->conferenceForm = $conferenceForm;
     }
     
     public function listAction() {
@@ -59,7 +68,7 @@ class ConferenceController extends AbstractActionController
     
     public function addAction() {
         
-        $form = new \Conference\Form\ConferenceForm();
+        //$form = new \Conference\Form\ConferenceForm();
         
         // Récupération des lieux
         $lieux = $this->lieuService->getAll();
@@ -73,7 +82,8 @@ class ConferenceController extends AbstractActionController
         
         if($this->request->isPost()) {
             //$this->request->getPost()->date_debut = date_create_from_format('Y-m-d', $this->request->getPost()->date_debut);
-            $conference = $this->conferenceService->insert($form, $this->request->getPost());
+            //$conference = $this->conferenceService->insert($form, $this->request->getPost());
+            $conference = $this->conferenceService->insert($this->conferenceForm, $this->request->getPost());
                         
             //var_dump($this->request->getPost());
             //exit();
@@ -84,7 +94,8 @@ class ConferenceController extends AbstractActionController
         }
         
         return new ViewModel(array(
-            'form' => $form,
+            //'form' => $form,
+            'form' => $this->conferenceForm,
             'lieux' => $tablieux,
         ));
     }
@@ -125,9 +136,8 @@ class ConferenceController extends AbstractActionController
         }
         
         $conference = $this->conferenceService->getById($id);
-                
-        $form = new \Conference\Form\ConferenceForm();
-        $form->bind($conference);
+        
+        $this->conferenceForm->bind($conference);
         
         $lieux = $this->lieuService->getAll();
         
@@ -137,7 +147,7 @@ class ConferenceController extends AbstractActionController
         }        
         
         if($this->request->isPost()) {
-            $conference_update = $this->conferenceService->update($id, $form, $this->request->getPost());
+            $conference_update = $this->conferenceService->update($id, $this->conferenceForm, $this->request->getPost());
             
             if($conference_update) {
                 return $this->redirect()->toRoute('conference');
@@ -145,7 +155,7 @@ class ConferenceController extends AbstractActionController
         }
         
         return new ViewModel(array(
-            'form' => $form,
+            'form' => $this->conferenceForm,
             'lieux' => $tablieux,
         ));
     }
