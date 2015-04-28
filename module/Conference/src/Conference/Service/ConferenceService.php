@@ -49,7 +49,7 @@ class ConferenceService
         $form->bind($conference);
         $form->setInputFilter(new ConferenceInputFilter());
         $form->setData($dataAssoc);
-        
+        //var_dump($form); 
         //var_dump($form->bind($conference));
         //exit();
         
@@ -58,7 +58,8 @@ class ConferenceService
         }
         //var_dump($form->get('date_debut'));
         //exit();        
-        
+        //var_dump($conference); 
+        //exit();
         $this->em->persist($conference);
         $this->em->flush();
         
