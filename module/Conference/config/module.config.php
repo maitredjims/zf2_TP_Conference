@@ -3,47 +3,55 @@
 return array(
     'controllers' => array(
         /*
-        'invokables' => array(
-            'Conference\Controller\Conference' => \Conference\Controller\ConferenceController::class,
-            'Conference\Controller\Lieu' => \Conference\Controller\LieuController::class,
-        ),
-        */
+          'invokables' => array(
+          'Conference\Controller\Conference' => \Conference\Controller\ConferenceController::class,
+          'Conference\Controller\Lieu' => \Conference\Controller\LieuController::class,
+          ),
+         */
         'factories' => array(
-            'Conference\Controller\Conference' => function($cm) {
-                // cm => Controller Manager
-                // sm => Service Manager
-                $sm = $cm->getServiceLocator();
-                $conferenceService = $sm->get('Conference\Service\Conference');
-                // Rajout de lieuService : ajout d'un lieu lors de la création d'un service
-                $lieuService = $sm->get('Conference\Service\Lieu');
-                
-                // Ajout de lieuService dans le return afin d'être utiliser dans le constructuer de ConferenceController
-                return new Conference\Controller\ConferenceController($conferenceService, $lieuService);
-            },
+//            'Conference\Controller\Conference' => function($cm) {
+//                // cm => Controller Manager
+//                // sm => Service Manager
+//                $sm = $cm->getServiceLocator();
+//                $conferenceService = $sm->get('Conference\Service\Conference');
+//                // Rajout de lieuService : ajout d'un lieu lors de la création d'un service
+//                $lieuService = $sm->get('Conference\Service\Lieu');
+//
+//                // Ajout de lieuService dans le return afin d'être utiliser dans le constructuer de ConferenceController
+//                return new Conference\Controller\ConferenceController($conferenceService, $lieuService);
+//            },
+            // Plus besoin de fonction anonyme grâce à la Factory
+            'Conference\Controller\Conference' => Conference\Factory\Controller\ConferenceControllerFactory::class, 
             'Conference\Controller\Lieu' => function($cm) {
                 // cm => Controller Manager
                 // sm => Service Manager
                 $sm = $cm->getServiceLocator();
                 $lieuService = $sm->get('Conference\Service\Lieu');
-                
+
                 return new Conference\Controller\LieuController($lieuService);
             },
+        ),
+    ),
+    // Factory pour le formulaire
+    'form_elements' => array(
+        'factories' => array(
+            'Conference\Form\ConferenceForm' => Conference\Factory\Form\ConferenceFormFactory::class,
         ),
     ),
     'router' => array(
         'routes' => array(
             /*
-            'home' => array(
-                'type' => \Zend\Mvc\Router\Http\Literal::class,
-                'options' => array(
-                    'route' => '/',
-                    'defaults' => array(
-                        'controller' => 'Conference\Controller\Conference',
-                        'action' => 'list',
-                    ),
-                ),
-            ),
-            */
+              'home' => array(
+              'type' => \Zend\Mvc\Router\Http\Literal::class,
+              'options' => array(
+              'route' => '/',
+              'defaults' => array(
+              'controller' => 'Conference\Controller\Conference',
+              'action' => 'list',
+              ),
+              ),
+              ),
+             */
             'conference' => array(
                 'type' => \Zend\Mvc\Router\Http\Literal::class,
                 'options' => array(
@@ -174,7 +182,7 @@ return array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
                 'paths' => array(
-                    __DIR__.'/../src/Conference/Entity',
+                    __DIR__ . '/../src/Conference/Entity',
                 ),
             ),
             // default metadata driver, aggregates all other drivers into a single one.
@@ -189,18 +197,20 @@ return array(
     ),
     'service_manager' => array(
         'factories' => array(
-            'Conference\Service\Conference' => function($sm) {
-                
-                $om = $sm->get('Doctrine\ORM\EntityManager');
-                $service = new \Conference\Service\ConferenceService($om);
-        
-                return $service;
-            },
+//            'Conference\Service\Conference' => function($sm) {
+//                
+//                $om = $sm->get('Doctrine\ORM\EntityManager');
+//                $service = new \Conference\Service\ConferenceService($om);
+//        
+//                return $service;
+//            },
+            // Utilisation de la Factory ConferenceControllerFactory
+            'Conference\Service\Conference' => Conference\Factory\Controller\ConferenceControllerFactory::class,
             'Conference\Service\Lieu' => function($sm) {
-                
+
                 $om = $sm->get('Doctrine\ORM\EntityManager');
                 $service = new \Conference\Service\LieuService($om);
-        
+
                 return $service;
             },
         ),
