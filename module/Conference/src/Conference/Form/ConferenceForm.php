@@ -26,8 +26,12 @@ class ConferenceForm extends Form {
         $this->add($element);
 
         $element = new \Zend\Form\Element\DateTime('date_debut');
-        $element->setLabel('Date de début');
-        $element->setFormat('Y-m-d');
+        $element->setLabel('Date de début :');
+        //$element->setValue(date('Y-m-d'));
+        $element->setOptions(array(
+            'format' => 'Y-m-d',
+        ));
+        //$element->setFormat('Y-m-d');
         $this->add($element);
 
 
@@ -41,7 +45,7 @@ class ConferenceForm extends Form {
         $element->setLabel('Lieu de la conférence :');
         $element->setOptions(array(
             'object_manager'     => $this->entityManager,
-            'label' => 'Lieu de la conférence',
+            'label' => 'Lieu de la conférence :',
             'target_class' => 'Conference\Entity\Lieu',
             'property' => 'lieu',
             'is_method' => true,
