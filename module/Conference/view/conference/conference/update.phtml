@@ -32,11 +32,11 @@ $this->headTitle($title);
         <?=$this->formElementErrors($form->get('date_debut'))?>
     </span>
 </div>
-<div class="form-group <?php if($form->get('lieu_id')) ; ?>">
-    <?=$this->formLabel($form->get('lieu_id')->setLabelAttributes(array('class' => 'col-sm-2 control-label')))?>
+<div class="form-group <?php if($form->get('lieu')) ; ?>">
+    <?=$this->formLabel($form->get('lieu')->setLabelAttributes(array('class' => 'col-sm-2 control-label')))?>
     <div class="col-sm-10">
         <?php //$form->get('lieu_id')->setValueOptions($lieux); ?>
-        <?=$this->formSelect($form->get('lieu_id')->setAttribute('class', 'form-control')->setValueOptions($lieux))?>
+        <?=$this->formSelect($form->get('lieu')->setAttribute('class', 'form-control')->setValueOptions($lieux))?>
     </div>
 </div>
 <div class="form-group">
