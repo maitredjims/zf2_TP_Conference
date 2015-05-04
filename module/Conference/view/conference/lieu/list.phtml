@@ -2,10 +2,10 @@
 $title = 'Liste des lieux';
 $this->headTitle($title);
 ?>
+<h2><?php echo $this->escapeHtml($title); ?></h2>
 <p>
     <a href="<?php echo $this->url('lieu/add', array('action' => 'add')); ?>" class="btn btn-primary">Ajouter un nouveau lieu</a>
 </p>
-<h2><?php echo $this->escapeHtml($title); ?></h2>
 <table class="table">
     <tr>
         <th>Nom du lieu</th>
