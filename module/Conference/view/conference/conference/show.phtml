@@ -4,18 +4,18 @@ $this->headTitle($title);
 ?>
 <h2><?php echo $this->escapeHtml($title); ?></h2>
 <p>
-    Nom de la conférence : <?php echo $this->escapeHtml($conference->getNom()); ?>
+    <b>Nom de la conférence :</b> <?php echo $this->escapeHtml($conference->getNom()); ?>
 </p>
 <p>
-    Détails : <?php echo $this->escapeHtml($conference->getDescriptif()); ?>
+    <b>Détails :</b> <?php echo $this->escapeHtml($conference->getDescriptif()); ?>
 </p>
 <?php if($conference->getDateDebut()) :?>
 <p>
-    Date de début : <?php echo $this->escapeHtml($conference->getDateDebut()->format('Y-m-d')); ?>
+    <b>Date de début :</b> <?php echo $this->escapeHtml($conference->getDateDebut()->format('Y-m-d')); ?>
 </p>
 <?php endif; ?>
 <?php if($conference->getLieu()) :?>
 <p>
-    Lieu : <?php echo $this->escapeHtml($conference->getLieu()->getNom());?>
+    <b>Lieu :</b> <?php echo $this->escapeHtml($conference->getLieu()->getNom());?>
 </p>
 <?php endif; ?>
