@@ -11,7 +11,7 @@ $this->headTitle($title);
 </p>
 <?php if($conference->getDateDebut()) :?>
 <p>
-    Date de début : <?php echo $this->escapeHtml($conference->getDateDebut()); ?>
+    Date de début : <?php echo $this->escapeHtml($conference->getDateDebut()->format('Y-m-d')); ?>
 </p>
 <?php endif; ?>
 <?php if($conference->getLieu()) :?>
