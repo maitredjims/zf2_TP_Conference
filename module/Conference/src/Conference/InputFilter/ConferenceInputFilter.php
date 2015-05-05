@@ -43,14 +43,19 @@ class ConferenceInputFilter extends InputFilter
 
         $this->add($input);
         
-        $input = new \Zend\InputFilter\Input('date_debut');
+        $input = new \Zend\InputFilter\Input('dateDebut');      
         
         $filter = new \Zend\Filter\StringTrim();
         $input->getFilterChain()->attach($filter);
 
         $filter = new \Zend\Filter\StripTags();
         $input->getFilterChain()->attach($filter);
-        $this->add($input);
+        
+        $validator = new \Zend\Validator\Date('dateDebut');
+        $filter->setFormat('Y-m-d');
+        $input->getValidatorChain()->attach($validator);
+
+        $this->add($input);      
         
         $input = new \Zend\InputFilter\Input('lieu_id');
         $input->setRequired(false);
