@@ -54,7 +54,7 @@ class ConferenceController extends AbstractActionController
         
         $id = $this->params('id');
         
-        $conference = $this->conferenceService->getById($id);
+        $conference = $this->conferenceService->getById($id, null);
         
         if(!$conference) {
             // Génération d'une réponse d'erreur
@@ -71,12 +71,12 @@ class ConferenceController extends AbstractActionController
         //$form = new \Conference\Form\ConferenceForm();
         
         // Récupération des lieux
-        $lieux = $this->lieuService->getAll();
+        //$lieux = $this->lieuService->getAll();
         
         // On enregistre les lieux dans un tableau
-        foreach ($lieux as $lieu) {
-            $tablieux[$lieu->getId()] = $lieu->getNom();
-        }
+//        foreach ($lieux as $lieu) {
+//            $tablieux[$lieu->getId()] = $lieu->getNom();
+//        }
         
         //var_dump($tablieux);
         
@@ -96,7 +96,7 @@ class ConferenceController extends AbstractActionController
         return new ViewModel(array(
             //'form' => $form,
             'form' => $this->conferenceForm,
-            'lieux' => $tablieux,
+            //'lieux' => $tablieux,
         ));
     }
     
@@ -135,19 +135,25 @@ class ConferenceController extends AbstractActionController
             return $this->redirect()->toRoute('conference');
         }
         
-        $conference = $this->conferenceService->getById($id);
+        $form = $this->conferenceForm;
         
-        $this->conferenceForm->bind($conference);
+        $conference = $this->conferenceService->getById($id, $form);
+        //$date_conf = $conference->getDateDebut()->format('Y-m-d');
+        //$conference->setDateDebut($date_conf);
+        //var_dump($conference);
+        //exit();
         
-        $lieux = $this->lieuService->getAll();
+        //$this->conferenceForm->bind($conference);
         
-        // On enregistre les lieux dans un tableau
-        foreach ($lieux as $lieu) {
-            $tablieux[$lieu->getId()] = $lieu->getNom();
-        }        
+//        $lieux = $this->lieuService->getAll();
+//        
+//        // On enregistre les lieux dans un tableau
+//        foreach ($lieux as $lieu) {
+//            $tablieux[$lieu->getId()] = $lieu->getNom();
+//        }        
         
         if($this->request->isPost()) {
-            $conference_update = $this->conferenceService->update($id, $this->conferenceForm, $this->request->getPost());
+            $conference_update = $this->conferenceService->update($conference, $this->conferenceForm, $this->request->getPost());
             
             if($conference_update) {
                 return $this->redirect()->toRoute('conference');
@@ -155,8 +161,8 @@ class ConferenceController extends AbstractActionController
         }
         
         return new ViewModel(array(
-            'form' => $this->conferenceForm,
-            'lieux' => $tablieux,
+            'form' => $form->prepare(),
+            //'lieux' => $tablieux,
         ));
     }
        
