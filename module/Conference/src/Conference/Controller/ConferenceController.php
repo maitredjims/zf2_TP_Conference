@@ -81,7 +81,7 @@ class ConferenceController extends AbstractActionController
         //var_dump($tablieux);
         
         if($this->request->isPost()) {
-            $this->request->getPost()->date_debut = date_create_from_format('Y-m-d', $this->request->getPost()->date_debut);
+            //$this->request->getPost()->date_debut = date_create_from_format('Y-m-d', $this->request->getPost()->date_debut);
             //$conference = $this->conferenceService->insert($form, $this->request->getPost());
             $conference = $this->conferenceService->insert($this->conferenceForm, $this->request->getPost());
                         
