@@ -24,11 +24,11 @@ class Conference
     
     /**
      *
-     * @var type datetime
+     * @var datetime
      * 
      * @ORM\Column(name="date_debut", type="datetime", nullable=true)
      */
-    protected $date_debut;
+    protected $dateDebut;
 
 
     /**
@@ -77,7 +77,7 @@ class Conference
      */
     public function setDateDebut($dateDebut)
     {
-        $this->date_debut = $dateDebut;
+        $this->dateDebut = $dateDebut;
 
         return $this;
     }
@@ -89,7 +89,7 @@ class Conference
      */
     public function getDateDebut()
     {
-        return $this->date_debut;
+        return $this->dateDebut;
     }
 
     /**
