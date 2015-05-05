@@ -52,7 +52,7 @@ class ConferenceInputFilter extends InputFilter
         $input->getFilterChain()->attach($filter);
         
         $validator = new \Zend\Validator\Date('dateDebut');
-        $filter->setFormat('Y-m-d');
+        $validator->setFormat('Y-m-d');
         $input->getValidatorChain()->attach($validator);
 
         $this->add($input);      
