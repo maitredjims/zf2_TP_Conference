@@ -47,7 +47,8 @@ class ConferenceForm extends Form {
             'object_manager'     => $this->entityManager,
             'label' => 'Lieu de la conférence :',
             'target_class' => 'Conference\Entity\Lieu',
-            'property' => 'lieu',
+            // Property => nom du champ qu'on souhaite, ici le nom des lieu qu'on souhaite rajouter au Select
+            'property' => 'nom',
             'is_method' => true,
             'find_method' => array(
                 'name' => 'getLieu',
