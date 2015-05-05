@@ -42,12 +42,11 @@ class ConferenceForm extends Form {
 
         $element = new \DoctrineModule\Form\Element\ObjectSelect('lieu');
         $element->setDisableInArrayValidator(true);
-        $element->setLabel('Lieu de la conférence :');
         $element->setOptions(array(
             'object_manager'     => $this->entityManager,
             'label' => 'Lieu de la conférence :',
             'target_class' => 'Conference\Entity\Lieu',
-            // Property => nom du champ qu'on souhaite, ici le nom des lieu qu'on souhaite rajouter au Select
+            // Property => nom du champ qu'on souhaite, ici le nom des lieux qu'on souhaite rajouter au Select
             'property' => 'nom',
             'is_method' => true,
             'find_method' => array(
