@@ -25,13 +25,13 @@ class ConferenceForm extends Form {
         $element->setLabel('Description de la conférence :');
         $this->add($element);
 
-        $element = new \Zend\Form\Element\DateTime('date_debut');
+        $element = new \Zend\Form\Element\DateTime('dateDebut');
         $element->setLabel('Date de début :');
         //$element->setValue(date('Y-m-d'));
-        $element->setOptions(array(
-            'format' => 'Y-m-d',
-        ));
-        //$element->setFormat('Y-m-d');
+//        $element->setOptions(array(
+//            'format' => 'Y-m-d',
+//        ));
+        $element->setFormat('Y-m-d');
         $this->add($element);
 
 
